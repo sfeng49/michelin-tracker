@@ -1,28 +1,31 @@
 :root {
   --red: #c8102e;
-  --red-dark: #9e0b23;
-  --gold: #f4b400;
-  --gold-deep: #d99e00;
-  --ink: #1c1a19;
-  --muted: #6b6560;
-  --line: #e7e2dc;
-  --bg: #faf7f2;
+  --red-dark: #9b0c22;
+  --gold: #d4a017;
+  --gold-deep: #b8860b;
+  --ink: #14110f;
+  --muted: #6f6a64;
+  --line: #e4e0da;
+  --bg: #ffffff;
   --card: #ffffff;
-  --card-sel: #fff6f2;
+  --card-sel: #fdf1f2;
+  --panel: #f6f4f1;
   --green: #2e7d32;
-  --shadow: 0 1px 2px rgba(0, 0, 0, .05), 0 8px 24px rgba(0, 0, 0, .06);
-  --radius: 14px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 6px 20px rgba(0, 0, 0, .05);
+  --radius: 6px;
+  --serif: 'Songti SC', 'Noto Serif SC', 'STSong', Georgia, 'Times New Roman', serif;
   font-synthesis: none;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ink: #f2ece4;
-    --muted: #a49c92;
-    --line: #322e2a;
-    --bg: #161311;
-    --card: #201c19;
-    --card-sel: #2b1d1a;
+    --ink: #f1ece6;
+    --muted: #9d968c;
+    --line: #302c28;
+    --bg: #141210;
+    --card: #1d1a17;
+    --card-sel: #2c1c1b;
+    --panel: #1a1714;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .35);
   }
 }
@@ -38,6 +41,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: .2px; }
+
 .app { min-height: 100vh; display: flex; flex-direction: column; }
 
 /* —— 顶栏 & 进度 —— */
@@ -51,10 +56,11 @@ body {
 }
 .brand {
   border: 0; background: none; cursor: pointer;
-  font-size: 17px; font-weight: 800; color: var(--ink);
-  display: flex; align-items: center; gap: 7px; padding: 4px 2px;
+  font-size: 15px; font-weight: 700; color: var(--ink);
+  display: flex; align-items: center; gap: 8px; padding: 4px 2px;
+  text-transform: uppercase; letter-spacing: 1.5px;
 }
-.brand-star { color: var(--red); font-size: 20px; }
+.brand-star { color: var(--red); font-size: 18px; letter-spacing: 0; }
 
 .progress { display: flex; gap: 6px; flex-wrap: wrap; }
 .pstep { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
@@ -77,16 +83,18 @@ body {
 
 /* —— 按钮 —— */
 .btn {
-  border: 1px solid var(--line); background: var(--card); color: var(--ink);
-  padding: 10px 18px; border-radius: 10px; font-size: 15px; font-weight: 600;
+  border: 1px solid var(--ink); background: var(--card); color: var(--ink);
+  padding: 11px 20px; border-radius: 3px; font-size: 14px; font-weight: 600;
   cursor: pointer; transition: .15s; font-family: inherit;
 }
-.btn:hover { border-color: var(--muted); }
-.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn:hover { background: var(--ink); color: var(--bg); }
+.btn:disabled { opacity: .35; cursor: not-allowed; }
+.btn:disabled:hover { background: var(--card); color: var(--ink); }
 .btn-primary { background: var(--red); border-color: var(--red); color: #fff; }
-.btn-primary:hover:not(:disabled) { background: var(--red-dark); border-color: var(--red-dark); }
-.btn-ghost { background: none; color: var(--muted); }
-.btn-lg { padding: 14px 30px; font-size: 17px; border-radius: 12px; }
+.btn-primary:hover:not(:disabled) { background: var(--red-dark); border-color: var(--red-dark); color: #fff; }
+.btn-ghost { background: none; color: var(--muted); border-color: var(--line); }
+.btn-ghost:hover { background: none; color: var(--ink); border-color: var(--muted); }
+.btn-lg { padding: 15px 34px; font-size: 15px; border-radius: 3px; letter-spacing: .5px; text-transform: uppercase; }
 
 /* —— 首页 —— */
 .hero { text-align: center; padding: 30px 10px 24px; }
@@ -98,7 +106,7 @@ body {
 .home-stats { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 22px 0; }
 .hstat {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 16px 22px; text-align: center; min-width: 120px; box-shadow: var(--shadow);
+  padding: 18px 22px; text-align: center; min-width: 120px; box-shadow: var(--shadow);
 }
 .hstat b { display: block; font-size: 26px; color: var(--red); }
 .hstat span { font-size: 13px; color: var(--muted); }
@@ -132,7 +140,7 @@ body {
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
 .card {
   text-align: left; background: var(--card); border: 1px solid var(--line);
-  border-radius: 12px; padding: 14px; cursor: pointer; transition: .12s; font-family: inherit;
+  border-radius: var(--radius); padding: 14px; cursor: pointer; transition: .12s; font-family: inherit;
   display: flex; align-items: center; gap: 10px; color: var(--ink);
 }
 .card:hover { border-color: var(--muted); }
@@ -147,6 +155,37 @@ body {
 .cc-en { font-size: 12px; color: var(--muted); }
 .cc-meta { text-align: right; font-size: 12px; color: var(--muted); display: flex; flex-direction: column; }
 .cc-stars { color: var(--gold-deep); font-weight: 700; }
+
+/* —— 国家标签页 —— */
+.ctabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 14px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.ctab {
+  border: 1px solid var(--line); background: var(--card); color: var(--muted);
+  padding: 7px 15px; border-radius: 20px; cursor: pointer; font-size: 14px;
+  font-family: inherit; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;
+}
+.ctab:hover { border-color: var(--muted); }
+.ctab.on { background: var(--red); border-color: var(--red); color: #fff; }
+.ctab-n { background: rgba(255,255,255,.28); border-radius: 10px; padding: 0 6px; font-size: 11px; }
+.ctab:not(.on) .ctab-n { background: var(--red); color: #fff; }
+
+/* —— 城市选择地图 —— */
+.cityselectmap {
+  height: 420px; width: 100%; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); position: relative; z-index: 0; isolation: isolate;
+  margin-bottom: 14px;
+}
+.city-select-wrap { background: none !important; border: 0 !important; }
+.city-select-pin {
+  display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;
+  transform: translate(-50%, -50%);
+  background: var(--card); color: var(--ink); border: 1.5px solid var(--muted);
+  padding: 3px 9px; border-radius: 16px; font-size: 12px; font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,.2); cursor: pointer;
+}
+.city-select-pin:hover { border-color: var(--red); }
+.city-select-pin.on { background: var(--red); color: #fff; border-color: var(--red); }
+.city-select-pin i { font-style: normal; opacity: .6; font-size: 10px; }
+.chips-below { margin-top: 4px; }
 
 /* —— 城市 —— */
 .country-block { margin: 18px 0; }

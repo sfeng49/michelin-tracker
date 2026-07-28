@@ -69,7 +69,8 @@ export default function FootprintMap({
   const map = useRef<L.Map | null>(null)
 
   useEffect(() => {
-    if (!el.current || map.current) return
+    if (!el.current || map.current || (el.current as unknown as { _leaflet_id?: number })._leaflet_id)
+      return
     map.current = L.map(el.current, { scrollWheelZoom: false, attributionControl: true })
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap',

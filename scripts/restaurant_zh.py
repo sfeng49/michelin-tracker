@@ -113,4 +113,60 @@ RESTAURANT_ZH = {
 
     # —— 其他常见连锁 ——
     "Imperial Treasure": "御宝",
+
+    # ============ 扩充批次（仅收录有把握者）============
+    # —— 香港 ——
+    "China Tang": "唐人馆",
+    "Sun Tung Lok": "新同乐",
+    "Man Wah": "文华厅",
+    "Yat Tung Heen": "逸东轩",
+    "Ho Hung Kee": "何洪记",
+    "Loaf On": "六福菜馆",
+    "Pang's Kitchen": "彭庆记",
+    "Yè Shanghai": "夜上海",
+    "Yong Fu": "甬府",
+    "Zhejiang Heen": "浙江轩",
+    "Liu Yuan Pavilion": "留园雅叙",
+    "The Legacy House": "迎曦",
+    "Fu Ho": "富豪",
+    "Gaddi's": "吉地士",
+    "Yee Tung Heen": "怡东轩",
+    "Ming Court": "明阁",
+    "Above & Beyond": "天外天",
+    "Golden Leaf": "金叶庭",
+    "Cuisine Cuisine": "国金轩",
+    "Ho Lee Fook": "何李活",
+    "Sun Tung Lok Chinese Restaurant": "新同乐",
+
+    # —— 台北 / 台湾 ——
+    "The Guest House": "请客楼",
+    "Da-Wan": "大腕",
+    "Fujin Tree Taiwanese Cuisine & Champagne": "富锦树台菜香槟",
+    "Golden Formosa": "金蓬莱遵古台菜",
+    "Ming Fu": "明福台菜海产",
+
+    # —— 北京 ——
+    "Da Dong": "大董",
+    "Gastro Esthetics DaDong": "大董",
+    "Gastro Esthetics at DaDong": "大董",
+    "Huaiyang Fu": "淮扬府",
+    "Lu Style": "鲁采",
+    "Ling Long": "玲珑",
+
+    # —— 上海 ——
+    "Fu 1015": "福1015",
+    "Fu 1039": "福1039",
+    "Fu 1088": "福1088",
+    "Jin Xuan": "金轩",
+    "Lao Zheng Xing": "老正兴",
+    "Yi Long Court": "逸龙阁",
+    "Ren He Guan": "人和馆",
+    "Cheng Long Hang": "成隆行",
+
+    # —— 广州 ——
+    "BingSheng Mansion": "炳胜公馆",
+    "BingSheng Private Kitchen": "炳胜私厨",
+
+    # —— 杭州 ——
+    "Longjing Manor": "龙井草堂",
 }

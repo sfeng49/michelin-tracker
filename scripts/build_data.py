@@ -266,10 +266,16 @@ def main():
             for x in recs:
                 by_award[x["award"]] += 1
             starred = sum(1 for x in recs if x["stars"] > 0)
+            # 城市中心坐标（用星级餐厅优先，否则全部餐厅的平均坐标）
+            coord_src = [x for x in recs if x["stars"] > 0 and x["lat"] is not None] \
+                or [x for x in recs if x["lat"] is not None]
+            clat = round(sum(x["lat"] for x in coord_src) / len(coord_src), 5) if coord_src else None
+            clng = round(sum(x["lng"] for x in coord_src) / len(coord_src), 5) if coord_src else None
             city_list.append({
                 "slug": city_slug, "name": city, "nameZh": CITY_ZH.get(city, ""),
                 "restaurantCount": len(recs), "starredCount": starred,
                 "starTotal": stars, "byAward": by_award, "file": fname,
+                "lat": clat, "lng": clng,
             })
             c_rest += len(recs); c_stars += stars
             for k, v in by_award.items():
@@ -292,6 +298,7 @@ def main():
         "historyYears": HISTORY_YEARS + [2026],
         "totals": {
             "restaurants": total,
+            "starred": sum(c["starredCount"] for c in countries_meta),
             "stars": sum(c["starTotal"] for c in countries_meta),
             "countries": len(countries_meta),
             "withChanges": changed_count,

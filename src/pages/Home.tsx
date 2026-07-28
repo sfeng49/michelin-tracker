@@ -20,7 +20,7 @@ export default function Home({ meta }: { meta: Meta }) {
 
       <div className="home-stats">
         <div className="hstat"><b>{t.countries}</b><span>个国家/地区</span></div>
-        <div className="hstat"><b>{t.restaurants.toLocaleString()}</b><span>家米其林餐厅</span></div>
+        <div className="hstat"><b>{t.starred.toLocaleString()}</b><span>家星级餐厅</span></div>
         <div className="hstat"><b>{t.stars.toLocaleString()}</b><span>颗星星在榜</span></div>
       </div>
 

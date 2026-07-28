@@ -47,6 +47,8 @@ export interface CityMeta {
   starTotal: number
   byAward: Record<string, number>
   file: string
+  lat: number | null
+  lng: number | null
 }
 
 export interface CountryMeta {
@@ -68,6 +70,7 @@ export interface Meta {
   historyYears: number[]
   totals: {
     restaurants: number
+    starred: number
     stars: number
     countries: number
     withChanges: number
