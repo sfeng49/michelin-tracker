@@ -1,17 +1,23 @@
-// 米其林花瓣星标（macaron）—— 由 6 片花瓣 + 中心圆组成的玫瑰花形，近似官方标志。
+// 米其林花瓣星标（macaron / rosette）—— 6 片水滴形花瓣 + 中心圆，参照官方形状重绘。
 // 提供三种用法：React 组件、SVG 字符串（Leaflet 弹窗）、canvas 绘制（分享图）。
 
-// 花瓣圆心（viewBox 100×100，中心 50,50）
-const PETALS: [number, number][] = [
-  [50, 26],
-  [70.78, 38],
-  [70.78, 62],
-  [50, 74],
-  [29.22, 62],
-  [29.22, 38],
-]
-const PETAL_R = 17
-const CORE_R = 20
+const PETALS = 6
+const CORE_R = 15
+// 一片指向正上方的花瓣（viewBox 100×100，中心 50,50）：底部收窄、顶端宽圆
+const PETAL_D = 'M50 48 C27 46 25 17 50 13 C75 17 73 46 50 48 Z'
+// 同一花瓣相对中心(0,0)的贝塞尔控制点，供 canvas 使用
+const PETAL_PTS = {
+  start: [0, -2] as const,
+  c1: [-23, -4] as const,
+  c2: [-25, -33] as const,
+  tip: [0, -37] as const,
+  c3: [25, -33] as const,
+  c4: [23, -4] as const,
+}
+
+function rotations() {
+  return Array.from({ length: PETALS }, (_, i) => (360 / PETALS) * i)
+}
 
 export function MichelinStar({
   size = 16,
@@ -31,15 +37,14 @@ export function MichelinStar({
       aria-hidden="true"
       style={{ display: 'block', fill: color ?? 'currentColor' }}
     >
-      {PETALS.map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r={PETAL_R} />
+      {rotations().map((deg) => (
+        <path key={deg} d={PETAL_D} transform={`rotate(${deg} 50 50)`} />
       ))}
       <circle cx="50" cy="50" r={CORE_R} />
     </svg>
   )
 }
 
-// 一排 n 颗星
 export function MichelinStars({ n, size = 16, color }: { n: number; size?: number; color?: string }) {
   if (n <= 0) return null
   return (
@@ -53,13 +58,13 @@ export function MichelinStars({ n, size = 16, color }: { n: number; size?: numbe
 
 // SVG 字符串（用于 Leaflet 弹窗等 innerHTML 场景）
 export function michelinStarSVG(size = 12, color = '#c8102e'): string {
-  const circles =
-    PETALS.map(([cx, cy]) => `<circle cx="${cx}" cy="${cy}" r="${PETAL_R}"/>`).join('') +
-    `<circle cx="50" cy="50" r="${CORE_R}"/>`
-  return `<svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="${color}" style="display:inline-block;vertical-align:-2px">${circles}</svg>`
+  const petals = rotations()
+    .map((deg) => `<path d="${PETAL_D}" transform="rotate(${deg} 50 50)"/>`)
+    .join('')
+  return `<svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="${color}" style="display:inline-block;vertical-align:-2px">${petals}<circle cx="50" cy="50" r="${CORE_R}"/></svg>`
 }
 
-// canvas 绘制（用于导出分享图）。cx,cy 为中心，r 为半径（=尺寸的一半）
+// canvas 绘制（分享图）。cx,cy 为中心，r 为半径（=尺寸的一半）
 export function drawMichelinStar(
   ctx: CanvasRenderingContext2D,
   cx: number,
@@ -68,12 +73,23 @@ export function drawMichelinStar(
   color: string,
 ) {
   const s = r / 50
+  ctx.save()
+  ctx.translate(cx, cy)
+  ctx.scale(s, s)
   ctx.fillStyle = color
-  const draw = (px: number, py: number, pr: number) => {
+  const p = PETAL_PTS
+  for (const deg of rotations()) {
+    ctx.save()
+    ctx.rotate((deg * Math.PI) / 180)
     ctx.beginPath()
-    ctx.arc(cx + (px - 50) * s, cy + (py - 50) * s, pr * s, 0, Math.PI * 2)
+    ctx.moveTo(p.start[0], p.start[1])
+    ctx.bezierCurveTo(p.c1[0], p.c1[1], p.c2[0], p.c2[1], p.tip[0], p.tip[1])
+    ctx.bezierCurveTo(p.c3[0], p.c3[1], p.c4[0], p.c4[1], p.start[0], p.start[1])
     ctx.fill()
+    ctx.restore()
   }
-  for (const [px, py] of PETALS) draw(px, py, PETAL_R)
-  draw(50, 50, CORE_R)
+  ctx.beginPath()
+  ctx.arc(0, 0, CORE_R, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.restore()
 }
