@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import type { Meta } from '../types'
 import { useStore, toggleCountry, go } from '../store/store'
 import ScopeToggle from '../components/ScopeToggle'
+import { MichelinStar } from '../components/MichelinStar'
 
 export default function Countries({ meta }: { meta: Meta }) {
   const selected = useStore((s) => s.countries)
@@ -52,7 +53,7 @@ export default function Countries({ meta }: { meta: Meta }) {
               </div>
               <div className="cc-meta">
                 <span>{includeAll ? c.restaurantCount : c.starredCount} 家</span>
-                <span className="cc-stars">★ {c.starTotal}</span>
+                <span className="cc-stars"><MichelinStar size={11} /> {c.starTotal}</span>
               </div>
             </button>
           )

@@ -3,6 +3,7 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import type { Restaurant } from '../types'
 import { cityLabel, restName } from '../data'
+import { michelinStarSVG } from './MichelinStar'
 
 const STAR_COLOR: Record<number, string> = {
   3: '#c8102e',
@@ -104,7 +105,7 @@ export default function FootprintMap({
         .map(
           (r) =>
             `<div class="pop-row"><span>${
-              r.stars > 0 ? '★'.repeat(r.stars) : '·'
+              r.stars > 0 ? michelinStarSVG(11).repeat(r.stars) : '·'
             }</span> ${restName(r)}</div>`,
         )
         .join('')

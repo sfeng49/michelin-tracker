@@ -42,8 +42,9 @@ export default function App() {
   return (
     <div className="app">
       <header className="topbar">
-        <button className="brand" onClick={() => go('home')}>
-          <span className="brand-star">★</span> 米其林打卡
+        <button className="brand" onClick={() => go('home')} aria-label="MICHELIN GUIDE 打卡统计">
+          <span className="wordmark"><b>MICHELIN</b>&nbsp;GUIDE</span>
+          <span className="brand-tag">打卡统计 · 非官方</span>
         </button>
         {step !== 'home' && <Progress step={step} />}
       </header>

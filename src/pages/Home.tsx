@@ -1,5 +1,6 @@
 import type { Meta } from '../types'
 import { useStore, go } from '../store/store'
+import { MichelinStar } from '../components/MichelinStar'
 
 export default function Home({ meta }: { meta: Meta }) {
   const visitedCount = useStore((s) => Object.keys(s.visited).length)
@@ -7,7 +8,7 @@ export default function Home({ meta }: { meta: Meta }) {
   return (
     <div className="home">
       <div className="hero">
-        <div className="hero-star">★</div>
+        <div className="hero-star"><MichelinStar size={56} color="var(--red)" /></div>
         <h1>你吃过多少家米其林？</h1>
         <p className="hero-sub">
           三步统计你打卡过的米其林餐厅数量与累计星星数，并标出每家餐厅历年的升星 / 降星记录。

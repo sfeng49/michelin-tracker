@@ -1,4 +1,5 @@
 // 生成可分享的打卡图片（Canvas 绘制 → 下载 PNG）
+import { drawMichelinStar } from './components/MichelinStar'
 
 export interface ShareData {
   total: number
@@ -39,11 +40,9 @@ export function renderShareCard(canvas: HTMLCanvasElement, d: ShareData) {
   ctx.fillStyle = g
   ctx.fillRect(0, 0, W, H)
 
-  // 顶部星
-  ctx.fillStyle = '#f4b400'
-  ctx.font = `120px ${CN}`
+  // 顶部米其林花瓣星标
   ctx.textAlign = 'center'
-  ctx.fillText('★', W / 2, 190)
+  drawMichelinStar(ctx, W / 2, 150, 62, '#f0c04a')
 
   ctx.fillStyle = '#fff'
   ctx.font = `bold 66px ${CN}`
@@ -75,29 +74,33 @@ export function renderShareCard(canvas: HTMLCanvasElement, d: ShareData) {
 
   // 星级明细
   let y = cardY + 320
-  const rows: [string, number][] = [
-    ['★★★ 三星', d.s3],
-    ['★★ 二星', d.s2],
-    ['★ 一星', d.s1],
+  const rows: { stars: number; label: string; n: number }[] = [
+    { stars: 3, label: '三星', n: d.s3 },
+    { stars: 2, label: '二星', n: d.s2 },
+    { stars: 1, label: '一星', n: d.s1 },
   ]
   if (d.includeAll) {
-    rows.push(['必比登', d.bib])
-    rows.push(['入选', d.selected])
+    rows.push({ stars: 0, label: '必比登', n: d.bib })
+    rows.push({ stars: 0, label: '入选', n: d.selected })
   }
   const rx = 200
   const rw = W - rx * 2
-  ctx.textAlign = 'left'
-  rows.forEach(([label, n]) => {
+  rows.forEach(({ stars, label, n }) => {
     ctx.fillStyle = 'rgba(255,255,255,.1)'
     roundRect(ctx, rx, y, rw, 66, 14)
     ctx.fill()
-    ctx.fillStyle = label.startsWith('★') ? '#f4b400' : '#fff'
-    ctx.font = `40px ${CN}`
-    ctx.fillText(label, rx + 30, y + 45)
+    // 花瓣星标
+    let sx = rx + 34
+    for (let i = 0; i < stars; i++) {
+      drawMichelinStar(ctx, sx, y + 33, 15, '#f0c04a')
+      sx += 36
+    }
     ctx.fillStyle = '#fff'
-    ctx.textAlign = 'right'
-    ctx.fillText(`× ${n}`, rx + rw - 30, y + 45)
     ctx.textAlign = 'left'
+    ctx.font = `40px ${CN}`
+    ctx.fillText(label, stars > 0 ? sx + 6 : rx + 30, y + 47)
+    ctx.textAlign = 'right'
+    ctx.fillText(`× ${n}`, rx + rw - 30, y + 47)
     y += 80
   })
 
@@ -114,7 +117,7 @@ export function renderShareCard(canvas: HTMLCanvasElement, d: ShareData) {
     ctx.fillText(c.zh, rx, y)
     ctx.textAlign = 'right'
     ctx.fillStyle = 'rgba(255,255,255,.75)'
-    ctx.fillText(`${c.count} 家 · ★${c.stars}`, rx + rw, y)
+    ctx.fillText(`${c.count} 家 · ${c.stars} 星`, rx + rw, y)
     ctx.textAlign = 'left'
   })
 

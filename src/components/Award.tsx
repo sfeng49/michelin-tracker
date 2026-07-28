@@ -1,13 +1,9 @@
-// 奖项徽标：星级用 ⭐，必比登/入选用文字 chip
+// 奖项徽标：星级用米其林花瓣星标，必比登/入选用文字 chip
 import { AWARD_ZH } from '../data'
+import { MichelinStars } from './MichelinStar'
 
-export function Stars({ n, size = 16 }: { n: number; size?: number }) {
-  if (n <= 0) return null
-  return (
-    <span className="stars" style={{ fontSize: size }} aria-label={`${n} 星`}>
-      {'★'.repeat(n)}
-    </span>
-  )
+export function Stars({ n, size = 15 }: { n: number; size?: number }) {
+  return <MichelinStars n={n} size={size} />
 }
 
 export function AwardBadge({ award, stars }: { award: string; stars: number }) {

@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import type { Meta, Restaurant } from '../types'
 import { useStore, go, resetAll } from '../store/store'
 import { loadCity, AWARD_ORDER, AWARD_ZH, cityLabel, restName } from '../data'
-import { Stars, AwardBadge, ChangeBadge } from '../components/Award'
+import { AwardBadge, ChangeBadge } from '../components/Award'
+import { MichelinStar } from '../components/MichelinStar'
 import FootprintMap from '../components/FootprintMap'
 import { downloadShareImage } from '../shareImage'
 
@@ -70,7 +71,7 @@ export default function Summary({ meta }: { meta: Meta }) {
   return (
     <div className="page summary">
       <div className="result-card">
-        <div className="rc-star">★</div>
+        <div className="rc-star"><MichelinStar size={44} color="var(--gold)" /></div>
         <h2>你的米其林足迹</h2>
         <div className="bignums">
           <div className="bignum">
@@ -100,7 +101,7 @@ export default function Summary({ meta }: { meta: Meta }) {
           })}
         </div>
         <p className="rc-line">
-          其中 <b>{starred}</b> 家星级餐厅，合计 <Stars n={0} /> <b>{stats.stars}</b> 星。
+          其中 <b>{starred}</b> 家星级餐厅，合计 <b>{stats.stars}</b> 颗星。
         </p>
       </div>
 
@@ -121,7 +122,7 @@ export default function Summary({ meta }: { meta: Meta }) {
                 <span className="ct-bar">
                   <i style={{ width: `${(c.count / total) * 100}%` }} />
                 </span>
-                <span className="ct-n">{c.count} 家 · ★{c.stars}</span>
+                <span className="ct-n">{c.count} 家 · <MichelinStar size={11} /> {c.stars}</span>
               </div>
             ))}
           </div>

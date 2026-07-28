@@ -55,12 +55,13 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: .2px; }
   border-bottom: 1px solid var(--line);
 }
 .brand {
-  border: 0; background: none; cursor: pointer;
-  font-size: 15px; font-weight: 700; color: var(--ink);
-  display: flex; align-items: center; gap: 8px; padding: 4px 2px;
-  text-transform: uppercase; letter-spacing: 1.5px;
+  border: 0; background: none; cursor: pointer; color: var(--ink);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 2px;
+  line-height: 1.05;
 }
-.brand-star { color: var(--red); font-size: 18px; letter-spacing: 0; }
+.wordmark { font-size: 20px; letter-spacing: .5px; color: var(--red); font-family: var(--serif); }
+.wordmark b { font-family: -apple-system, 'Arial Black', 'Helvetica Neue', sans-serif; font-weight: 800; letter-spacing: -.3px; }
+.brand-tag { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
 
 .progress { display: flex; gap: 6px; flex-wrap: wrap; }
 .pstep { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
@@ -98,7 +99,7 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: .2px; }
 
 /* —— 首页 —— */
 .hero { text-align: center; padding: 30px 10px 24px; }
-.hero-star { font-size: 46px; color: var(--red); line-height: 1; }
+.hero-star { display: flex; justify-content: center; margin-bottom: 4px; }
 .hero h1 { font-size: 30px; margin: 12px 0 8px; letter-spacing: -.5px; }
 .hero-sub { color: var(--muted); font-size: 16px; max-width: 520px; margin: 0 auto 22px; line-height: 1.6; }
 .hero-note { color: var(--muted); font-size: 13px; margin-top: 14px; }
@@ -154,7 +155,7 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: .2px; }
 .cc-name b { font-size: 15px; }
 .cc-en { font-size: 12px; color: var(--muted); }
 .cc-meta { text-align: right; font-size: 12px; color: var(--muted); display: flex; flex-direction: column; }
-.cc-stars { color: var(--gold-deep); font-weight: 700; }
+.cc-stars { color: var(--red); font-weight: 700; display: inline-flex; align-items: center; gap: 3px; justify-content: flex-end; }
 
 /* —— 国家标签页 —— */
 .ctabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 14px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
@@ -235,7 +236,7 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: .2px; }
 .rhistory { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
 
 /* 星星 & 徽标 */
-.stars { color: var(--gold); letter-spacing: 1px; font-weight: 700; }
+.stars { color: var(--red); display: inline-flex; gap: 1px; vertical-align: -2px; }
 .chip { font-size: 12px; padding: 2px 8px; border-radius: 6px; font-weight: 600; }
 .chip-bib { background: #7a1f2b; color: #fff; }
 .chip-selected { background: var(--line); color: var(--muted); }
@@ -259,7 +260,9 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: .2px; }
   color: #fff; border-radius: 20px; padding: 30px 22px; text-align: center;
   box-shadow: var(--shadow); position: relative; overflow: hidden;
 }
-.rc-star { font-size: 40px; color: var(--gold); }
+.rc-star { display: flex; justify-content: center; }
+.result-card .stars { color: var(--gold); }
+.pop-row span svg { vertical-align: -1px; }
 .result-card h2 { margin: 6px 0 20px; font-size: 22px; }
 .bignums { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 .bignum { background: rgba(255, 255, 255, .12); border-radius: 14px; padding: 16px 20px; min-width: 100px; }
@@ -279,7 +282,7 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: .2px; }
 .ct-name { width: 90px; font-size: 14px; flex: none; }
 .ct-bar { flex: 1; height: 10px; background: var(--line); border-radius: 6px; overflow: hidden; }
 .ct-bar i { display: block; height: 100%; background: var(--red); border-radius: 6px; }
-.ct-n { font-size: 12px; color: var(--muted); width: 96px; text-align: right; flex: none; }
+.ct-n { font-size: 12px; color: var(--muted); width: 96px; flex: none; display: inline-flex; align-items: center; gap: 3px; justify-content: flex-end; }
 
 .changelist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
 .changelist li { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--card); }
