@@ -8,6 +8,7 @@ export interface AppState {
   countries: string[]          // 选中的国家 slug
   cities: string[]             // 选中的城市 key（countrySlug/citySlug）
   visited: Record<string, true> // 打卡的餐厅 id
+  wishlist: Record<string, true> // 想去的餐厅 id
   includeAll: boolean          // false=默认只统计星级餐厅；true=含必比登/入选
 }
 
@@ -18,6 +19,7 @@ const initial: AppState = {
   countries: [],
   cities: [],
   visited: {},
+  wishlist: {},
   includeAll: false,
 }
 
@@ -92,6 +94,15 @@ export function toggleVisited(id: string) {
     if (visited[id]) delete visited[id]
     else visited[id] = true
     return { visited }
+  })
+}
+
+export function toggleWishlist(id: string) {
+  setState((s) => {
+    const wishlist = { ...s.wishlist }
+    if (wishlist[id]) delete wishlist[id]
+    else wishlist[id] = true
+    return { wishlist }
   })
 }
 

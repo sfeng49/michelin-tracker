@@ -12,6 +12,8 @@ export interface ShareData {
   countries: { zh: string; count: number; stars: number }[]
   changed: number
   includeAll: boolean
+  levelTitle?: string
+  collectionPct?: number // 已收集全球星级餐厅百分比
 }
 
 const W = 1080
@@ -49,8 +51,8 @@ export function renderShareCard(canvas: HTMLCanvasElement, d: ShareData) {
   ctx.fillText('我的米其林足迹', W / 2, 290)
 
   ctx.font = `34px ${CN}`
-  ctx.fillStyle = 'rgba(255,255,255,.8)'
-  ctx.fillText(d.includeAll ? '含必比登 · 入选' : '只统计星级餐厅', W / 2, 345)
+  ctx.fillStyle = '#f0c04a'
+  ctx.fillText(d.levelTitle ? `Lv. ${d.levelTitle}` : '', W / 2, 345)
 
   // 两个大数字卡片
   const cardY = 400
@@ -121,23 +123,39 @@ export function renderShareCard(canvas: HTMLCanvasElement, d: ShareData) {
     ctx.textAlign = 'left'
   })
 
+  // 收集度
+  if (d.collectionPct != null) {
+    y += 34
+    ctx.textAlign = 'center'
+    ctx.fillStyle = '#f0c04a'
+    ctx.font = `34px ${CN}`
+    ctx.fillText(`已集齐全球 ${d.collectionPct}% 的星级餐厅`, W / 2, y)
+  }
+
   // 底部
   ctx.textAlign = 'center'
   ctx.fillStyle = 'rgba(255,255,255,.6)'
   ctx.font = `30px ${CN}`
-  ctx.fillText('米其林打卡 · 星星统计', W / 2, H - 60)
+  ctx.fillText('MICHELIN GUIDE 打卡统计 · 非官方', W / 2, H - 60)
 }
 
-export function downloadShareImage(d: ShareData) {
+export function shareCardBlob(d: ShareData): Promise<Blob | null> {
   const canvas = document.createElement('canvas')
   renderShareCard(canvas, d)
-  canvas.toBlob((blob) => {
-    if (!blob) return
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `米其林足迹-${d.total}家-${d.stars}星.png`
-    a.click()
-    setTimeout(() => URL.revokeObjectURL(url), 1000)
-  }, 'image/png')
+  return new Promise((resolve) => canvas.toBlob((b) => resolve(b), 'image/png'))
+}
+
+export function shareFileName(d: ShareData) {
+  return `米其林足迹-${d.total}家-${d.stars}星.png`
+}
+
+export async function downloadShareImage(d: ShareData) {
+  const blob = await shareCardBlob(d)
+  if (!blob) return
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = shareFileName(d)
+  a.click()
+  setTimeout(() => URL.revokeObjectURL(url), 1000)
 }

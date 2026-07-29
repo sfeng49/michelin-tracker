@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { Meta, Restaurant } from '../types'
-import { useStore, toggleVisited, setVisitedBulk, go } from '../store/store'
+import { useStore, toggleVisited, toggleWishlist, setVisitedBulk, go } from '../store/store'
 import { loadCity, AWARD_ORDER, AWARD_ZH, cityLabel, restName } from '../data'
 import { AwardBadge, ChangeBadge } from '../components/Award'
 import ScopeToggle from '../components/ScopeToggle'
@@ -14,6 +14,7 @@ interface CityGroup {
 export default function Restaurants({ meta }: { meta: Meta }) {
   const selectedCities = useStore((s) => s.cities)
   const visited = useStore((s) => s.visited)
+  const wishlist = useStore((s) => s.wishlist)
   const includeAll = useStore((s) => s.includeAll)
   const [groups, setGroups] = useState<CityGroup[] | null>(null)
   const [q, setQ] = useState('')
@@ -167,6 +168,16 @@ export default function Restaurants({ meta }: { meta: Meta }) {
                         </div>
                       )}
                     </div>
+                    <button
+                      className={`wish-btn ${wishlist[r.id] ? 'on' : ''}`}
+                      title="想去"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleWishlist(r.id)
+                      }}
+                    >
+                      {wishlist[r.id] ? '♥' : '♡'}
+                    </button>
                   </li>
                 )
               })}

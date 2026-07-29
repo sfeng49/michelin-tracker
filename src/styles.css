@@ -318,5 +318,55 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: .2px; }
 .pop-more { color: #888; font-size: 12px; margin-top: 4px; }
 
 .share-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+/* —— 等级条（结果卡内）—— */
+.level { max-width: 340px; margin: 4px auto 18px; }
+.level-title { font-weight: 700; font-size: 15px; }
+.level-bar { height: 7px; background: rgba(255,255,255,.2); border-radius: 4px; margin: 8px 0 5px; overflow: hidden; }
+.level-bar i { display: block; height: 100%; background: var(--gold); border-radius: 4px; transition: width .5s; }
+.level-hint { font-size: 12px; opacity: .85; }
+
+/* —— 徽章 —— */
+.badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+.badge {
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 6px;
+  text-align: center; background: var(--card); opacity: .45; filter: grayscale(1);
+}
+.badge.got { opacity: 1; filter: none; border-color: var(--gold); background: var(--card-sel); }
+.badge-ic { display: block; font-size: 26px; line-height: 1.1; }
+.badge-lb { font-size: 12px; color: var(--muted); }
+.badge.got .badge-lb { color: var(--ink); font-weight: 600; }
+
+/* —— 收集度 —— */
+.collect-total { font-size: 15px; margin: 0 0 12px; }
+.collect-total b { color: var(--red); font-size: 20px; }
+.collect { display: flex; flex-direction: column; gap: 9px; }
+.collect-row { display: flex; align-items: center; gap: 10px; }
+.collect-lb { width: 62px; flex: none; display: inline-flex; align-items: center; gap: 4px; color: var(--red); font-weight: 600; font-size: 13px; }
+.collect-n { font-size: 12px; color: var(--muted); width: 118px; text-align: right; flex: none; }
+
+/* —— 口味画像 —— */
+.profile { display: flex; gap: 12px; flex-wrap: wrap; }
+.pf-item { flex: 1; min-width: 130px; background: var(--panel); border-radius: var(--radius); padding: 14px; }
+.pf-item b { display: block; font-size: 19px; color: var(--red); }
+.pf-item span { font-size: 12px; color: var(--muted); }
+.taglist { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.tag { border: 1px solid var(--line); border-radius: 16px; padding: 4px 11px; font-size: 13px; }
+.tag i { font-style: normal; color: var(--muted); font-size: 11px; }
+
+/* —— 想去按钮 & 清单 —— */
+.wish-btn {
+  align-self: center; border: 0; background: none; cursor: pointer; flex: none;
+  color: var(--muted); font-size: 22px; line-height: 1; padding: 4px 6px; transition: .12s;
+}
+.wish-btn:hover { color: var(--red); transform: scale(1.15); }
+.wish-btn.on { color: var(--red); }
+.wishlist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.wishlist li { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+
+/* —— 分享 —— */
+.btn-wx { background: #07c160; border-color: #07c160; }
+.btn-wx:hover:not(:disabled) { background: #06a552; border-color: #06a552; color: #fff; }
+.share-msg { font-size: 13px; color: var(--red); margin: 4px 0 0; }
+.share-tip { margin-top: 6px; }
 .share { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
 .sharebox { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--card); color: var(--ink); font-family: inherit; font-size: 14px; resize: vertical; }
