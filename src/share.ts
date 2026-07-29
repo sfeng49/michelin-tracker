@@ -26,9 +26,21 @@ export function buildCaption(d: ShareData, platform: Platform): string {
 
 export type ShareResult = 'shared' | 'fallback' | 'error'
 
+// 尽量在用户手势内复制文案（异步 await 之后浏览器可能拒绝剪贴板写入）
+async function copyCaption(caption: string): Promise<boolean> {
+  try {
+    await navigator.clipboard?.writeText(caption)
+    return true
+  } catch {
+    return false
+  }
+}
+
 // 返回 'shared'（已唤起系统分享）| 'fallback'（已下载图片+复制文案）| 'error'
 export async function shareToSocial(d: ShareData, platform: Platform): Promise<ShareResult> {
   const caption = buildCaption(d, platform)
+  // 第一时间复制文案，趁点击手势仍有效
+  const copied = copyCaption(caption)
   try {
     const blob = await shareCardBlob(d)
     if (blob) {
@@ -47,10 +59,10 @@ export async function shareToSocial(d: ShareData, platform: Platform): Promise<S
     // 用户取消分享会抛 AbortError —— 视为已处理，不再回退
     if (e instanceof Error && e.name === 'AbortError') return 'shared'
   }
-  // 回退：下载图片 + 复制文案
+  // 回退：下载图片（文案已在手势内尝试复制）
   try {
     await downloadShareImage(d)
-    await navigator.clipboard?.writeText(caption)
+    await copied
     return 'fallback'
   } catch {
     return 'error'

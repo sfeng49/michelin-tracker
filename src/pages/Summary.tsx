@@ -6,7 +6,7 @@ import { AwardBadge, ChangeBadge } from '../components/Award'
 import { MichelinStar } from '../components/MichelinStar'
 import FootprintMap from '../components/FootprintMap'
 import { downloadShareImage, type ShareData } from '../shareImage'
-import { shareToSocial } from '../share'
+import { shareToSocial, buildCaption } from '../share'
 import { computeLevel, computeBadges } from '../stats'
 
 export default function Summary({ meta }: { meta: Meta }) {
@@ -113,7 +113,9 @@ export default function Summary({ meta }: { meta: Meta }) {
     selected: stats.byAward['Selected'] ?? 0,
     countries: stats.countries, changed: stats.changed.length, includeAll,
     levelTitle: level.title, collectionPct,
+    badges: badges.filter((b) => b.got).map(({ icon, label }) => ({ icon, label })),
   }
+  const caption = buildCaption(shareData, 'xhs')
 
   async function share(platform: 'xhs' | 'moments') {
     setShareMsg('生成图片中…')
@@ -305,6 +307,20 @@ export default function Summary({ meta }: { meta: Meta }) {
         <p className="muted share-tip">
           手机上会唤起系统分享面板，选微信 / 小红书即可；电脑上会保存图片并复制文案，去 App 新建帖子粘贴发布。
         </p>
+        <textarea readOnly className="sharebox" value={caption} rows={6} onFocus={(e) => e.currentTarget.select()} />
+        <button
+          className="btn"
+          onClick={async () => {
+            try {
+              await navigator.clipboard.writeText(caption)
+              setShareMsg('文案已复制 ✓')
+            } catch {
+              setShareMsg('复制失败，请长按 / 右键手动复制上方文案')
+            }
+          }}
+        >
+          复制文案
+        </button>
       </section>
 
       <div className="footbar">
