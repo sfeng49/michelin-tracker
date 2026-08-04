@@ -370,6 +370,20 @@ h1, h2, h3, .serif { font-family: var(--serif); letter-spacing: .2px; }
 .wishlist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .wishlist li { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
 
+/* —— 关注作者 —— */
+.follow-card {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  color: #fff; border-radius: var(--radius); padding: 18px 20px;
+}
+.follow-title { font-size: 17px; font-weight: 700; }
+.follow-sub { font-size: 13px; opacity: .9; margin-top: 2px; }
+.follow-btn { margin-left: auto; background: var(--gold); border-color: var(--gold); color: #1c1614; white-space: nowrap; }
+.follow-btn:hover { background: #e0a92e; border-color: #e0a92e; color: #1c1614; }
+.foot-author { margin-bottom: 8px; }
+.author-link { color: var(--red); font-weight: 700; text-decoration: none; }
+.author-link:hover { text-decoration: underline; }
+
 /* —— 分享 —— */
 .btn-wx { background: #07c160; border-color: #07c160; }
 .btn-wx:hover:not(:disabled) { background: #06a552; border-color: #06a552; color: #fff; }

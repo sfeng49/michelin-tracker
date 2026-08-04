@@ -1,5 +1,6 @@
 // 生成可分享的打卡图片（Canvas 绘制 → 下载 PNG）。自上而下布局，动态高度，避免错位。
 import { drawMichelinStar } from './components/MichelinStar'
+import { AUTHOR, SITE_URL } from './author'
 
 export interface ShareData {
   total: number
@@ -209,11 +210,14 @@ export function renderShareCard(canvas: HTMLCanvasElement, d: ShareData) {
     }
   }
 
-  // 底部
+  // 底部：作者署名 + 域名（成绩卡被转发时带上作者，形成涨粉闭环）
   ctx.textAlign = 'center'
+  ctx.fillStyle = GOLD
+  ctx.font = `32px ${CN}`
+  ctx.fillText(`小红书 @${AUTHOR.handle}`, cx, H - 82)
   ctx.fillStyle = 'rgba(255,255,255,.6)'
-  ctx.font = `30px ${CN}`
-  ctx.fillText('MICHELIN GUIDE 打卡统计 · 非官方', cx, H - 55)
+  ctx.font = `28px ${CN}`
+  ctx.fillText(`${SITE_URL} · 非官方`, cx, H - 46)
 }
 
 export function shareCardBlob(d: ShareData): Promise<Blob | null> {

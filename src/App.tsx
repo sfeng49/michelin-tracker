@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useStore, go } from './store/store'
 import { loadMeta } from './data'
+import { AUTHOR } from './author'
 import type { Meta } from './types'
 import Home from './pages/Home'
 import Countries from './pages/Countries'
@@ -64,6 +65,13 @@ export default function App() {
       </main>
 
       <footer className="foot">
+        <div className="foot-author">
+          由{' '}
+          <a href={AUTHOR.url} target="_blank" rel="noopener noreferrer" className="author-link">
+            小红书 @{AUTHOR.handle}
+          </a>{' '}
+          制作 · 关注看更多米其林榜单与攻略
+        </div>
         数据来源：MICHELIN Guide（ngshiheng/michelin-my-maps）· 星级历史基于 2022–2026 快照还原，仅供参考
       </footer>
     </div>

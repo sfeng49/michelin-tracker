@@ -8,6 +8,7 @@ import FootprintMap from '../components/FootprintMap'
 import { downloadShareImage, type ShareData } from '../shareImage'
 import { shareToSocial, buildCaption } from '../share'
 import { computeLevel, computeBadges } from '../stats'
+import { AUTHOR } from '../author'
 
 export default function Summary({ meta }: { meta: Meta }) {
   const selectedCities = useStore((s) => s.cities)
@@ -294,6 +295,19 @@ export default function Summary({ meta }: { meta: Meta }) {
           </ul>
         </section>
       )}
+
+      {/* 关注作者 */}
+      <section className="block follow-block">
+        <div className="follow-card">
+          <div>
+            <div className="follow-title">喜欢这个小工具？</div>
+            <div className="follow-sub">关注作者，持续更新米其林榜单、探店攻略与新玩法</div>
+          </div>
+          <a href={AUTHOR.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary follow-btn">
+            关注 @{AUTHOR.handle}
+          </a>
+        </div>
+      </section>
 
       {/* 分享 */}
       <section className="block share">
